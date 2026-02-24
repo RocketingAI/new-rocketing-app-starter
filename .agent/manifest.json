@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0.0",
+  "template": "rocketing-starter",
+  "template_version": "0.1.0-mvp",
+
+  "product": {
+    "name": null,
+    "domain": null,
+    "description": null,
+    "category": null
+  },
+
+  "stack": {
+    "framework": "nextjs",
+    "frameworkVersion": "16",
+    "router": "app",
+    "language": "typescript",
+    "auth": "clerk",
+    "payments": "stripe",
+    "database": "mongodb",
+    "ui": ["shadcn", "tailwindcss", "radix-ui"],
+    "chat": "chatkit-ui",
+    "deployment": "vercel",
+    "registry": "rocketing"
+  },
+
+  "layers": {
+    "infrastructure": {
+      "description": "Core wiring. NEVER modify directly.",
+      "paths": [
+        "src/lib/db/client.ts",
+        "src/lib/stripe/client.ts",
+        "src/lib/auth/helpers.ts",
+        "src/app/layout.tsx",
+        "middleware.ts",
+        "src/components/ui/"
+      ]
+    },
+    "configuration": {
+      "description": "Primary agent interaction mode. Modify these files to customize the app.",
+      "paths": [
+        "config/site.config.ts",
+        "config/theme.config.ts",
+        "config/navigation.config.ts",
+        "config/plans.config.ts",
+        "config/features.config.ts",
+        "config/entities/*.yaml",
+        "config/registries/manifest.json"
+      ]
+    },
+    "scaffold": {
+      "description": "Generated or written from config. Create new files following existing patterns.",
+      "paths": [
+        "src/lib/db/models/",
+        "src/app/api/v1/",
+        "src/app/(app)/",
+        "src/components/domain/"
+      ]
+    },
+    "extension": {
+      "description": "Custom code. Use when config and scaffold patterns aren't enough.",
+      "paths": [
+        "src/app/(app)/**",
+        "src/components/domain/**",
+        "src/lib/utils/**"
+      ]
+    }
+  },
+
+  "registries": {
+    "manifest": "config/registries/manifest.json",
+    "source": "registry.rocketing.ai",
+    "description": "Pre-built components, layouts, blocks, and themes available from Rocketing registries"
+  },
+
+  "phases": [
+    { "id": "genesis",  "status": "complete", "description": "Repo cloned, env configured" },
+    { "id": "identity", "status": "pending",  "description": "Update site.config.ts, theme.config.ts, branding" },
+    { "id": "schema",   "status": "pending",  "description": "Define entity schemas in config/entities/" },
+    { "id": "scaffold", "status": "pending",  "description": "Create models, API routes, pages for entities" },
+    { "id": "pages",    "status": "pending",  "description": "Build page layouts and compositions" },
+    { "id": "content",  "status": "pending",  "description": "Marketing copy, legal, support content" },
+    { "id": "logic",    "status": "pending",  "description": "Custom business rules (if needed)" },
+    { "id": "polish",   "status": "pending",  "description": "Theme tuning, responsive, final QA" },
+    { "id": "deploy",   "status": "pending",  "description": "Vercel deploy, DNS, go-live" }
+  ],
+
+  "env_vars": [
+    { "key": "NEXT_PUBLIC_APP_URL",               "required": true,  "phase": "genesis" },
+    { "key": "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",  "required": true,  "phase": "genesis" },
+    { "key": "CLERK_SECRET_KEY",                   "required": true,  "phase": "genesis" },
+    { "key": "CLERK_WEBHOOK_SECRET",               "required": true,  "phase": "genesis" },
+    { "key": "STRIPE_SECRET_KEY",                  "required": true,  "phase": "genesis" },
+    { "key": "STRIPE_WEBHOOK_SECRET",              "required": true,  "phase": "genesis" },
+    { "key": "MONGODB_URI",                        "required": true,  "phase": "genesis" },
+    { "key": "OPENAI_API_KEY",                     "required": true,  "phase": "genesis" },
+    { "key": "STRIPE_PRODUCT_ID",                  "required": false, "phase": "genesis" },
+    { "key": "STRIPE_PRICE_ID",                    "required": false, "phase": "genesis" },
+    { "key": "ROCKETING_REGISTRY_API_KEY",         "required": false, "phase": "genesis" }
+  ]
+}

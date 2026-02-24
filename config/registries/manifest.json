@@ -1,0 +1,65 @@
+{
+  "$schema": "https://registry.rocketing.ai/schemas/manifest.json",
+  "version": "1.0.0",
+  "description": "Registry item manifest — lists components, layouts, and assets needed from Rocketing registries. This file is populated before the starter is cloned, based on the app's requirements from earlier pipeline phases.",
+
+  "components": [
+    {
+      "name": "button",
+      "registry": "components",
+      "source": "registry.rocketing.ai",
+      "status": "pending",
+      "notes": "Base button component with variants"
+    },
+    {
+      "name": "card",
+      "registry": "components",
+      "source": "registry.rocketing.ai",
+      "status": "pending",
+      "notes": "Card container component"
+    },
+    {
+      "name": "data-table",
+      "registry": "components",
+      "source": "registry.rocketing.ai",
+      "status": "pending",
+      "notes": "Sortable, filterable data table"
+    },
+    {
+      "name": "form-fields",
+      "registry": "components",
+      "source": "registry.rocketing.ai",
+      "status": "pending",
+      "notes": "Standard form field components"
+    }
+  ],
+
+  "layouts": [
+    {
+      "name": "marketing-layout",
+      "registry": "layouts",
+      "source": "registry.rocketing.ai",
+      "status": "pending",
+      "notes": "Public marketing page layout with header/footer"
+    },
+    {
+      "name": "app-shell",
+      "registry": "layouts",
+      "source": "registry.rocketing.ai",
+      "status": "pending",
+      "notes": "Authenticated app layout with sidebar"
+    },
+    {
+      "name": "dashboard",
+      "registry": "layouts",
+      "source": "registry.rocketing.ai",
+      "status": "pending",
+      "notes": "Dashboard layout with stat cards and recent items"
+    }
+  ],
+
+  "blocks": [],
+  "themes": [],
+
+  "_instructions": "Agents should check item status. 'pending' = not yet installed. 'installed' = available in the codebase. 'skipped' = not needed. Update status as items are resolved."
+}
