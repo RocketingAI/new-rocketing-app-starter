@@ -1,0 +1,25 @@
+name: Cascade Deploy Trigger
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  trigger-deploy:
+    # Only run when the Cascade bot pushes — prevents infinite loop
+    if: github.event.head_commit.author.name == 'Rocketing Cascade'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.DEPLOY_PAT }}
+
+      - name: Append deploy log and commit
+        run: |
+          mkdir -p .cascade
+          echo "$(date -u '+%Y-%m-%dT%H:%M:%SZ') deploy triggered by cascade commit ${GITHUB_SHA::8}" >> .cascade/deploy.log
+          git config user.name "danlohman"
+          git config user.email "daniel.lohman@gmail.com"
+          git add .cascade/deploy.log
+          git commit -m "chore: deploy trigger for ${GITHUB_SHA::8}"
+          git push
