@@ -96,3 +96,49 @@ export interface PlansConfig {
 export interface FeaturesConfig {
   [key: string]: boolean;
 }
+
+export interface ChatKitConfig {
+  archetype: string;
+
+  agent: {
+    name: string;
+    greeting: string;
+    placeholder: string;
+    systemPrompt: string;
+    model: string;
+    reasoning: { effort: string };
+  };
+
+  registry: {
+    agent: string;
+    prompt: string;
+    tools: string[];
+    skills: string[];
+    widgets: string[];
+    workflows: string[];
+  };
+
+  tone: {
+    personality: string;
+    formality: string;
+    readingLevel: string;
+    emojiUsage: string;
+    traits: string[];
+    antiTraits: string[];
+  };
+
+  microcopy: {
+    emptyState: string;
+    loading: string;
+    success: string | null;
+    error: string;
+  };
+
+  guardrails: {
+    enabled: boolean;
+    contentFiltering: boolean;
+    piiFiltering: boolean;
+    topicRestrictions: string[];
+    maxTokens: number;
+  };
+}
