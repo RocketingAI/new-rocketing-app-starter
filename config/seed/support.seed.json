@@ -1,0 +1,34 @@
+{
+  "_meta": {
+    "configType": "support",
+    "version": "1.0.0",
+    "starterTemplate": "rocketing-mvp-starter",
+    "description": "Support page \u2014 headline, description, contact info, FAQ entries",
+    "agentTask": "customizeSupport",
+    "cascadeScope": [
+      "trigger",
+      "sector6",
+      "sector7"
+    ],
+    "dependsOn": [
+      "site"
+    ],
+    "notes": "Agents customize headline, FAQ entries, and contact info from brand kernel"
+  },
+  "data": {
+    "headline": "Support",
+    "description": "Have a question or need help? Reach out and we'll get back to you.",
+    "contactEmail": "support@example.ai",
+    "contactForm": {
+      "enabled": true,
+      "fields": [
+        "name",
+        "email",
+        "subject",
+        "message"
+      ]
+    },
+    "responseTime": "We typically respond within 24 hours.",
+    "faqs": []
+  }
+}

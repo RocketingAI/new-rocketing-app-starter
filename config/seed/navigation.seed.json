@@ -1,0 +1,93 @@
+{
+  "_meta": {
+    "configType": "navigation",
+    "version": "1.0.0",
+    "starterTemplate": "rocketing-mvp-starter",
+    "description": "Navigation structure \u2014 header, sidebar, and footer link groups",
+    "agentTask": "configureNavigation",
+    "cascadeScope": [
+      "trigger",
+      "architecture"
+    ],
+    "dependsOn": [
+      "site",
+      "entities"
+    ],
+    "notes": "Agents update sidebar items to match app entities and feature flags"
+  },
+  "data": {
+    "header": [
+      {
+        "title": "Features",
+        "href": "/#features"
+      },
+      {
+        "title": "Pricing",
+        "href": "/pricing"
+      },
+      {
+        "title": "Support",
+        "href": "/support"
+      }
+    ],
+    "sidebar": [
+      {
+        "title": "Dashboard",
+        "href": "/dashboard",
+        "icon": "LayoutDashboard",
+        "featureFlag": "enableDashboard"
+      },
+      {
+        "title": "Chat",
+        "href": "/dashboard/chat",
+        "icon": "MessageSquare",
+        "featureFlag": "enableChat"
+      },
+      {
+        "title": "Projects",
+        "href": "/projects",
+        "icon": "FolderKanban",
+        "featureFlag": "enableProjects"
+      },
+      {
+        "title": "Settings",
+        "href": "/settings",
+        "icon": "Settings"
+      }
+    ],
+    "footer": {
+      "product": [
+        {
+          "title": "Features",
+          "href": "/#features"
+        },
+        {
+          "title": "Pricing",
+          "href": "/pricing"
+        },
+        {
+          "title": "Support",
+          "href": "/support"
+        }
+      ],
+      "company": [
+        {
+          "title": "Privacy Policy",
+          "href": "/privacy"
+        },
+        {
+          "title": "Terms of Service",
+          "href": "/terms"
+        },
+        {
+          "title": "Data Policy",
+          "href": "/data-policy"
+        },
+        {
+          "title": "Contact",
+          "href": "/support"
+        }
+      ]
+    }
+  }
+}

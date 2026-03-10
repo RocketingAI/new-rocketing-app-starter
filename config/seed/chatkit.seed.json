@@ -1,0 +1,60 @@
+{
+  "_meta": {
+    "configType": "chatkit",
+    "version": "1.0.0",
+    "starterTemplate": "rocketing-mvp-starter",
+    "description": "ChatKit AI assistant \u2014 persona, system prompt, tone, registry refs, guardrails",
+    "agentTask": "configureChatkit",
+    "cascadeScope": [
+      "trigger",
+      "sector1",
+      "sector17"
+    ],
+    "dependsOn": [
+      "site"
+    ],
+    "notes": "Agents set archetype from sector1, tone from sector17, system prompt from PRD"
+  },
+  "data": {
+    "archetype": "personal-companion",
+    "agent": {
+      "name": "AI Assistant",
+      "greeting": "Hi! How can I help you today?",
+      "placeholder": "Ask anything...",
+      "systemPrompt": "You are a helpful AI assistant. You help users with their questions and tasks. Be concise, friendly, and professional.",
+      "model": "gpt-5-mini",
+      "reasoning": {
+        "effort": "low"
+      }
+    },
+    "registry": {
+      "agent": null,
+      "prompt": null,
+      "tools": [],
+      "skills": [],
+      "widgets": [],
+      "workflows": []
+    },
+    "tone": {
+      "personality": "Friendly and professional",
+      "formality": "casual-professional",
+      "readingLevel": "8th grade",
+      "emojiUsage": "none",
+      "traits": [],
+      "antiTraits": []
+    },
+    "microcopy": {
+      "emptyState": "Ask me anything. I'm here to help.",
+      "loading": "Thinking...",
+      "success": null,
+      "error": "Something went wrong. Please try again."
+    },
+    "guardrails": {
+      "enabled": false,
+      "contentFiltering": false,
+      "piiFiltering": false,
+      "topicRestrictions": [],
+      "maxTokens": 4096
+    }
+  }
+}

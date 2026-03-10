@@ -1,0 +1,38 @@
+{
+  "_meta": {
+    "configType": "theme",
+    "version": "1.0.0",
+    "starterTemplate": "rocketing-mvp-starter",
+    "description": "Visual theme \u2014 HSL colors, fonts, border radius. Maps to CSS custom properties.",
+    "agentTask": "configureTheme",
+    "cascadeScope": [
+      "sector22"
+    ],
+    "dependsOn": [],
+    "notes": "Agents derive brand colors from sector22_visualIdentityDirection"
+  },
+  "data": {
+    "colors": {
+      "primary": "217 91% 60%",
+      "primaryForeground": "210 40% 98%",
+      "secondary": "217 33% 17%",
+      "secondaryForeground": "210 40% 98%",
+      "accent": "217 33% 17%",
+      "accentForeground": "210 40% 98%",
+      "destructive": "0 63% 31%",
+      "muted": "217 33% 17%",
+      "mutedForeground": "215 20% 65%",
+      "background": "222 47% 11%",
+      "foreground": "210 40% 98%",
+      "card": "222 47% 11%",
+      "cardForeground": "210 40% 98%",
+      "border": "217 33% 17%",
+      "ring": "224 76% 48%"
+    },
+    "fonts": {
+      "sans": "var(--font-geist-sans)",
+      "mono": "var(--font-geist-mono)"
+    },
+    "radius": "0.5rem"
+  }
+}

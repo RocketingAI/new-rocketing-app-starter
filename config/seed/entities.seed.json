@@ -1,0 +1,115 @@
+{
+  "_meta": {
+    "configType": "entities",
+    "version": "1.0.0",
+    "starterTemplate": "rocketing-mvp-starter",
+    "description": "Domain entity definitions \u2014 fields, ownership, API routes, UI layouts",
+    "agentTask": "defineEntities",
+    "cascadeScope": [
+      "sector1",
+      "sector7",
+      "sector15",
+      "prd",
+      "architecture"
+    ],
+    "dependsOn": [],
+    "notes": "Agents replace the example project entity with app-specific entities from the PRD"
+  },
+  "data": {
+    "entities": [
+      {
+        "name": "project",
+        "displayName": "Project",
+        "pluralName": "Projects",
+        "description": "A project that users can create and manage",
+        "icon": "folder-kanban",
+        "fields": [
+          {
+            "name": "title",
+            "type": "string",
+            "required": true,
+            "searchable": true,
+            "display": true,
+            "validation": {
+              "minLength": 1,
+              "maxLength": 200
+            }
+          },
+          {
+            "name": "description",
+            "type": "string",
+            "required": false,
+            "display": false,
+            "ui": "textarea"
+          },
+          {
+            "name": "status",
+            "type": "enum",
+            "required": true,
+            "default": "draft",
+            "options": [
+              "draft",
+              "active",
+              "completed",
+              "archived"
+            ],
+            "display": true,
+            "filterable": true
+          },
+          {
+            "name": "priority",
+            "type": "enum",
+            "required": false,
+            "default": "medium",
+            "options": [
+              "low",
+              "medium",
+              "high",
+              "urgent"
+            ],
+            "display": true,
+            "filterable": true
+          },
+          {
+            "name": "dueDate",
+            "type": "date",
+            "required": false,
+            "display": true,
+            "sortable": true
+          }
+        ],
+        "ownership": {
+          "field": "userId",
+          "model": "per-user"
+        },
+        "api": {
+          "basePath": "/api/v1/projects",
+          "operations": [
+            "list",
+            "get",
+            "create",
+            "update",
+            "delete"
+          ],
+          "pagination": true,
+          "defaultSort": {
+            "field": "createdAt",
+            "order": "desc"
+          },
+          "defaultLimit": 20
+        },
+        "ui": {
+          "listLayout": "table",
+          "detailLayout": "detail-sidebar",
+          "createLayout": "modal",
+          "cardFields": [
+            "title",
+            "status",
+            "priority",
+            "dueDate"
+          ]
+        }
+      }
+    ]
+  }
+}

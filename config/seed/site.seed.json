@@ -1,0 +1,43 @@
+{
+  "_meta": {
+    "configType": "site",
+    "version": "1.0.0",
+    "starterTemplate": "rocketing-mvp-starter",
+    "description": "Site identity \u2014 app name, domain, logo, social links, support email, legal entity",
+    "agentTask": "configureSite",
+    "cascadeScope": [
+      "trigger",
+      "sector2",
+      "sector17",
+      "sector22"
+    ],
+    "dependsOn": [],
+    "notes": "Agents populate from trigger domain info + brand kernel sectors 2, 17, 22"
+  },
+  "data": {
+    "name": "App Name",
+    "shortName": "App",
+    "description": "A brief description of the app",
+    "domain": "example.ai",
+    "url": "https://www.example.ai",
+    "logo": {
+      "text": "App Name",
+      "icon": null
+    },
+    "ogImage": "/og-default.png",
+    "links": {
+      "twitter": null,
+      "github": null,
+      "discord": null
+    },
+    "support": {
+      "email": "support@example.ai",
+      "docs": null
+    },
+    "legal": {
+      "companyName": "Rocketing AI, Inc.",
+      "companyAddress": null,
+      "jurisdiction": "Delaware, USA"
+    }
+  }
+}

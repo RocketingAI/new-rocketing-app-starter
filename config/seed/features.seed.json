@@ -1,0 +1,26 @@
+{
+  "_meta": {
+    "configType": "features",
+    "version": "1.0.0",
+    "starterTemplate": "rocketing-mvp-starter",
+    "description": "Feature flags \u2014 toggle app capabilities on/off",
+    "agentTask": "configureFeatures",
+    "cascadeScope": [
+      "sector7",
+      "sector15",
+      "architecture"
+    ],
+    "dependsOn": [
+      "entities"
+    ],
+    "notes": "Agents enable/disable features based on PRD scope and product boundary"
+  },
+  "data": {
+    "enableChat": true,
+    "enableBilling": true,
+    "enableDashboard": true,
+    "enableProjects": true,
+    "enableNewsletter": false,
+    "enableSocialLogin": false
+  }
+}
