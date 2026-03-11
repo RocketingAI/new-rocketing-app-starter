@@ -1,25 +1,25 @@
-name: Cascade Deploy Trigger
+name: Cascade Re-commit
 
 on:
   push:
     branches: [main]
 
+permissions:
+  contents: write
+
 jobs:
-  trigger-deploy:
-    # Only run when the Cascade bot pushes — prevents infinite loop
-    if: github.event.head_commit.author.name == 'Rocketing Cascade'
+  re-commit:
+    if: github.event.head_commit.author.email \!= 'daniel.lohman@gmail.com' && github.event.head_commit.author.email \!= 'danlohman@users.noreply.github.com'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          token: ${{ secrets.DEPLOY_PAT }}
+          token: ${{ github.token }}
 
-      - name: Append deploy log and commit
+      - name: Re-commit as danlohman
         run: |
-          mkdir -p .cascade
-          echo "$(date -u '+%Y-%m-%dT%H:%M:%SZ') deploy triggered by cascade commit ${GITHUB_SHA::8}" >> .cascade/deploy.log
           git config user.name "danlohman"
           git config user.email "daniel.lohman@gmail.com"
-          git add .cascade/deploy.log
-          git commit -m "chore: deploy trigger for ${GITHUB_SHA::8}"
+          git commit --allow-empty -m "chore: re-commit ${GITHUB_SHA::8} for Vercel deploy"
           git push
+
