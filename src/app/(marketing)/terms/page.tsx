@@ -1,6 +1,7 @@
-import { siteConfig } from "@/../config/site.config";
+import { getSiteConfig } from "@/lib/config/loader";
 
-export default function TermsPage() {
+export default async function TermsPage() {
+  const siteConfig = await getSiteConfig();
   return (
     <div className="prose prose-invert mx-auto max-w-3xl">
       <h1>Terms of Service</h1>

@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect } from "react";
-import { themeConfig } from "@/../config/theme.config";
+import { useThemeConfig } from "@/lib/config/config-context";
 
-// Injects theme.config.ts values as CSS custom properties at runtime.
-// This ensures that changing theme.config.ts actually updates the UI
+// Injects theme config values as CSS custom properties at runtime.
+// This ensures that changing theme config actually updates the UI
 // without needing to manually sync globals.css.
 
 export function ThemeInjector() {
+  const themeConfig = useThemeConfig();
   useEffect(() => {
     const root = document.documentElement;
     const { colors, radius } = themeConfig;
@@ -17,6 +18,6 @@ export function ThemeInjector() {
       root.style.setProperty(cssVar, value);
     });
     root.style.setProperty("--radius", radius);
-  }, []);
+  }, [themeConfig]);
   return null;
 }

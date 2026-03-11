@@ -3,9 +3,10 @@
 import { useState } from "react";
 import { PricingCard } from "@/components/marketing/pricing-card";
 import { Button } from "@/components/ui/button";
-import { plansConfig } from "@/../config/plans.config";
+import { usePlansConfig } from "@/lib/config/config-context";
 
 export default function PricingPage() {
+  const plansConfig = usePlansConfig();
   const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">("monthly");
   return (
     <div className="mx-auto max-w-5xl">

@@ -1,9 +1,12 @@
 import Link from "next/link";
 import { Logo } from "@/components/shared/logo";
-import { siteConfig } from "@/../config/site.config";
-import { navigationConfig } from "@/../config/navigation.config";
+import { getSiteConfig, getNavigationConfig } from "@/lib/config/loader";
 
-export function PublicFooter() {
+export async function PublicFooter() {
+  const [siteConfig, navigationConfig] = await Promise.all([
+    getSiteConfig(),
+    getNavigationConfig(),
+  ]);
   return (
     <footer className="border-t border-border/40 bg-background">
       <div className="container mx-auto px-4 py-12">

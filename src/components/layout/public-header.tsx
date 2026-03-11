@@ -4,12 +4,13 @@ import Link from "next/link";
 import { useAuth } from "@clerk/nextjs";
 import { Logo } from "@/components/shared/logo";
 import { Button } from "@/components/ui/button";
-import { navigationConfig } from "@/../config/navigation.config";
+import { useNavigationConfig } from "@/lib/config/config-context";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
 export function PublicHeader() {
   const { isSignedIn } = useAuth();
+  const navigationConfig = useNavigationConfig();
   const [mobileOpen, setMobileOpen] = useState(false);
   return (
     <header className="sticky top-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-sm">

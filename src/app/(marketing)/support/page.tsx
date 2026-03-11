@@ -5,10 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { siteConfig } from "@/../config/site.config";
+import { useSiteConfig } from "@/lib/config/config-context";
 import { toast } from "sonner";
 
 export default function SupportPage() {
+  const siteConfig = useSiteConfig();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

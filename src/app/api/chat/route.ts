@@ -4,14 +4,12 @@ import OpenAI from "openai";
 import { connectDB } from "@/lib/db/client";
 import { ChatHistory } from "@/lib/db/models/chat-history.model";
 import { apiSuccess, apiError } from "@/lib/utils/api";
+import { getChatKitConfig } from "@/lib/config/loader";
 
 // ─── ChatKit API Route ─────────────────────────────────────────
 // Uses GPT-5 Responses API (NOT Chat Completions).
-// System prompt is loaded from config — Phase 8 customizes it.
+// Agent persona, model, and guardrails loaded from MongoDB config.
 // ────────────────────────────────────────────────────────────────
-
-// CUSTOMIZE: Replace with app-specific system prompt
-const SYSTEM_PROMPT = `You are a helpful AI assistant. You help users with their questions and tasks. Be concise, friendly, and professional.`;
 
 function getOpenAI() {
   return new OpenAI();
@@ -21,6 +19,7 @@ export async function POST(request: NextRequest) {
   const { userId } = await auth();
   if (!userId) return apiError("Unauthorized", 401);
   await connectDB();
+  const chatkitConfig = await getChatKitConfig();
   const body = await request.json();
   const { message, previousResponseId } = body;
   if (!message || typeof message !== "string") {
@@ -28,13 +27,12 @@ export async function POST(request: NextRequest) {
   }
   try {
     const response = await getOpenAI().responses.create({
-      model: "gpt-5-mini",
+      model: chatkitConfig.agent.model,
       input: message,
-      instructions: SYSTEM_PROMPT,
+      instructions: chatkitConfig.agent.systemPrompt,
       ...(previousResponseId ? { previous_response_id: previousResponseId } : {}),
-      reasoning: { effort: "low" },
+      reasoning: chatkitConfig.agent.reasoning,
     });
-    // Save to chat history
     await ChatHistory.create({
       userId,
       userMessage: message,

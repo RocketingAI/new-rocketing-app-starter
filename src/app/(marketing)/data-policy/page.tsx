@@ -1,6 +1,7 @@
-import { siteConfig } from "@/../config/site.config";
+import { getSiteConfig } from "@/lib/config/loader";
 
-export default function DataPolicyPage() {
+export default async function DataPolicyPage() {
+  const siteConfig = await getSiteConfig();
   return (
     <div className="prose prose-invert mx-auto max-w-3xl">
       <h1>Data Policy</h1>

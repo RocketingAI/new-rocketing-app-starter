@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { Rocket } from "lucide-react";
-import { siteConfig } from "@/../config/site.config";
+import { useSiteConfig } from "@/lib/config/config-context";
 
 export function Logo({ className }: { className?: string }) {
+  const siteConfig = useSiteConfig();
   return (
     <Link href="/" className={`flex items-center gap-2 ${className || ""}`}>
       {siteConfig.logo.icon ? (

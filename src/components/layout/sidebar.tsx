@@ -11,8 +11,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 import { Logo } from "@/components/shared/logo";
-import { navigationConfig } from "@/../config/navigation.config";
-import { featuresConfig } from "@/../config/features.config";
+import { useNavigationConfig, useFeaturesConfig } from "@/lib/config/config-context";
 
 const iconMap: Record<string, LucideIcon> = {
   LayoutDashboard,
@@ -23,6 +22,8 @@ const iconMap: Record<string, LucideIcon> = {
 
 export function Sidebar() {
   const pathname = usePathname();
+  const navigationConfig = useNavigationConfig();
+  const featuresConfig = useFeaturesConfig();
   return (
     <aside className="flex h-full w-64 flex-col border-r border-border/40 bg-background">
       <div className="flex h-16 items-center border-b border-border/40 px-6">

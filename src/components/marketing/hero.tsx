@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { siteConfig } from "@/../config/site.config";
+import { getSiteConfig } from "@/lib/config/loader";
 import { ArrowRight } from "lucide-react";
 
-export function Hero() {
+export async function Hero() {
+  const siteConfig = await getSiteConfig();
   return (
     <section className="flex flex-col items-center justify-center gap-6 py-24 text-center md:py-32">
       <div className="space-y-4">

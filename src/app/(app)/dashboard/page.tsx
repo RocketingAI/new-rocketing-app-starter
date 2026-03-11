@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChatPanel } from "@/components/chat/chat-panel";
-import { siteConfig } from "@/../config/site.config";
+import { getSiteConfig } from "@/lib/config/loader";
 import { FolderKanban, BarChart3, Clock, Users } from "lucide-react";
 
 // CUSTOMIZE: Replace stat cards with app-specific metrics
@@ -11,7 +11,8 @@ const stats = [
   { title: "Team Members", value: "1", icon: Users, change: null },
 ];
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const siteConfig = await getSiteConfig();
   return (
     <div className="space-y-6">
       <div>

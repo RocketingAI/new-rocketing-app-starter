@@ -1,7 +1,8 @@
 import { SignIn } from "@clerk/nextjs";
-import { siteConfig } from "@/../config/site.config";
+import { getSiteConfig } from "@/lib/config/loader";
 
-export default function SignInPage() {
+export default async function SignInPage() {
+  const siteConfig = await getSiteConfig();
   return (
     <div className="flex min-h-screen">
       {/* Left panel — branding */}

@@ -5,7 +5,8 @@ import { dark } from "@clerk/themes";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "sonner";
 import { ThemeInjector } from "@/components/providers/theme-injector";
-import { siteConfig } from "@/../config/site.config";
+import { getAllConfigs } from "@/lib/config/loader";
+import { ConfigProvider } from "@/lib/config/config-context";
 import "./globals.css";
 
 // Force dynamic rendering — ClerkProvider requires runtime env vars
@@ -21,27 +22,31 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: siteConfig.name,
-    template: `%s | ${siteConfig.name}`,
-  },
-  description: siteConfig.description,
-  openGraph: {
-    title: siteConfig.name,
-    description: siteConfig.description,
-    url: siteConfig.url,
-    siteName: siteConfig.name,
-    images: [{ url: siteConfig.ogImage }],
-    type: "website",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { site } = await getAllConfigs();
+  return {
+    title: {
+      default: site.name,
+      template: `%s | ${site.name}`,
+    },
+    description: site.description,
+    openGraph: {
+      title: site.name,
+      description: site.description,
+      url: site.url,
+      siteName: site.name,
+      images: [{ url: site.ogImage }],
+      type: "website",
+    },
+  };
+}
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const configs = await getAllConfigs();
   return (
     <ClerkProvider
       appearance={{ baseTheme: dark }}
@@ -56,9 +61,11 @@ export default function RootLayout({
             enableSystem={false}
             disableTransitionOnChange
           >
-            <ThemeInjector />
-            {children}
-            <Toaster richColors position="top-right" />
+            <ConfigProvider configs={configs}>
+              <ThemeInjector />
+              {children}
+              <Toaster richColors position="top-right" />
+            </ConfigProvider>
           </ThemeProvider>
         </body>
       </html>
