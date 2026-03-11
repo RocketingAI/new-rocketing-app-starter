@@ -27,11 +27,11 @@ export async function POST(request: NextRequest) {
   }
   try {
     const response = await getOpenAI().responses.create({
-      model: chatkitConfig.agent.model,
+      model: chatkitConfig.model,
       input: message,
-      instructions: chatkitConfig.agent.systemPrompt,
+      instructions: chatkitConfig.systemPrompt,
       ...(previousResponseId ? { previous_response_id: previousResponseId } : {}),
-      reasoning: chatkitConfig.agent.reasoning,
+      reasoning: chatkitConfig.reasoning,
     });
     await ChatHistory.create({
       userId,

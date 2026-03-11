@@ -50,13 +50,13 @@ export function ChatPanel() {
       } else {
         setMessages((prev) => [
           ...prev,
-          { role: "assistant", content: chatkitConfig.microcopy.error },
+          { role: "assistant", content: chatkitConfig.errorText },
         ]);
       }
     } catch {
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: chatkitConfig.microcopy.error },
+        { role: "assistant", content: chatkitConfig.errorText },
       ]);
     } finally {
       setLoading(false);
@@ -66,7 +66,7 @@ export function ChatPanel() {
     <div className="flex h-full flex-col rounded-lg border border-border/40 bg-card">
       <div className="flex items-center gap-2 border-b border-border/40 px-4 py-3">
         <MessageSquare className="h-4 w-4 text-primary" />
-        <span className="text-sm font-medium">{chatkitConfig.agent.name}</span>
+        <span className="text-sm font-medium">{chatkitConfig.agentName}</span>
       </div>
       <div className="flex-1 overflow-y-auto p-4">
         {messages.length === 0 ? (
@@ -74,9 +74,9 @@ export function ChatPanel() {
             <div className="rounded-full bg-primary/10 p-4">
               <MessageSquare className="h-8 w-8 text-primary" />
             </div>
-            <h3 className="text-lg font-semibold">{chatkitConfig.agent.name}</h3>
+            <h3 className="text-lg font-semibold">{chatkitConfig.agentName}</h3>
             <p className="max-w-sm text-sm text-muted-foreground">
-              {chatkitConfig.microcopy.emptyState}
+              {chatkitConfig.emptyStateText}
             </p>
           </div>
         ) : (
@@ -124,7 +124,7 @@ export function ChatPanel() {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder={chatkitConfig.agent.placeholder}
+            placeholder={chatkitConfig.placeholder}
             className="flex-1 rounded-md border border-input bg-transparent px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
             disabled={loading}
           />

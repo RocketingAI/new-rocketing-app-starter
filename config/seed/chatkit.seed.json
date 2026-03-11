@@ -1,9 +1,9 @@
 {
   "_meta": {
     "configType": "chatkit",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "starterTemplate": "rocketing-mvp-starter",
-    "description": "ChatKit AI assistant \u2014 persona, system prompt, tone, registry refs, guardrails",
+    "description": "ChatKit AI assistant — flat structure aligned with builder's ChatContainerConfig",
     "agentTask": "configureChatkit",
     "cascadeScope": [
       "trigger",
@@ -13,28 +13,12 @@
     "dependsOn": [
       "site"
     ],
-    "notes": "Agents set archetype from sector1, tone from sector17, system prompt from PRD"
+    "notes": "Flat structure matches builder.rocketing.ai/chatkit/ui output. Extra fields (archetype, model, reasoning, tone, registry*) are cascade-specific."
   },
   "data": {
     "archetype": "personal-companion",
-    "agent": {
-      "name": "AI Assistant",
-      "greeting": "Hi! How can I help you today?",
-      "placeholder": "Ask anything...",
-      "systemPrompt": "You are a helpful AI assistant. You help users with their questions and tasks. Be concise, friendly, and professional.",
-      "model": "gpt-5-mini",
-      "reasoning": {
-        "effort": "low"
-      }
-    },
-    "registry": {
-      "agent": null,
-      "prompt": null,
-      "tools": [],
-      "skills": [],
-      "widgets": [],
-      "workflows": []
-    },
+    "model": "gpt-5-mini",
+    "reasoning": { "effort": "low" },
     "tone": {
       "personality": "Friendly and professional",
       "formality": "casual-professional",
@@ -43,18 +27,93 @@
       "traits": [],
       "antiTraits": []
     },
-    "microcopy": {
-      "emptyState": "Ask me anything. I'm here to help.",
-      "loading": "Thinking...",
-      "success": null,
-      "error": "Something went wrong. Please try again."
-    },
-    "guardrails": {
-      "enabled": false,
-      "contentFiltering": false,
-      "piiFiltering": false,
-      "topicRestrictions": [],
-      "maxTokens": 4096
-    }
+    "errorText": "Something went wrong. Please try again.",
+    "loadingText": "Thinking...",
+    "successText": null,
+    "registryAgent": null,
+    "registryPrompt": null,
+    "registryTools": [],
+    "registrySkills": [],
+
+    "containerType": "embedded",
+    "width": 400,
+    "widthUnit": "px",
+    "height": 500,
+    "heightUnit": "px",
+    "maxWidth": 800,
+    "maxHeight": 700,
+    "borderRadius": 16,
+    "borderRadiusTL": 16,
+    "borderRadiusTR": 16,
+    "borderRadiusBL": 16,
+    "borderRadiusBR": 16,
+    "useIndividualCorners": false,
+    "showBorder": true,
+    "showShadow": true,
+    "position": "right",
+
+    "useIndividualPadding": false,
+    "padding": 0,
+    "paddingTop": 0,
+    "paddingRight": 0,
+    "paddingBottom": 0,
+    "paddingLeft": 0,
+    "useIndividualMargin": false,
+    "margin": 0,
+    "marginTop": 0,
+    "marginRight": 0,
+    "marginBottom": 0,
+    "marginLeft": 0,
+
+    "showHeader": true,
+    "headerText": "Chat Assistant",
+    "headerAlignment": "left",
+
+    "theme": "auto",
+    "backgroundColor": "",
+    "accentColor": "#3b82f6",
+    "useCustomBackground": false,
+
+    "fontFamily": "system",
+    "headerFontSize": 14,
+    "headerFontWeight": "semibold",
+    "bodyFontSize": 14,
+    "bodyLineHeight": 1.5,
+    "inputFontSize": 14,
+    "messageSpacing": 12,
+
+    "profileId": "default",
+    "agentName": "AI Assistant",
+    "agentSelectorVariant": "none",
+    "systemPrompt": "You are a helpful AI assistant. You help users with their questions and tasks. Be concise, friendly, and professional.",
+
+    "widgetsEnabled": false,
+    "widgets": [],
+
+    "guardrailsEnabled": false,
+    "maxTokens": 4096,
+    "contentFiltering": false,
+    "piiFiltering": false,
+    "topicRestrictions": [],
+
+    "workflowsEnabled": false,
+    "workflows": [],
+
+    "greeting": "Hi! How can I help you today?",
+    "placeholder": "Ask anything...",
+    "emptyStateText": "Ask me anything. I'm here to help.",
+    "attachmentsEnabled": false,
+    "autoFocus": true,
+
+    "fabSize": 56,
+    "fabTooltip": "Chat with us",
+    "showBadge": false,
+    "fabIcon": "chat",
+
+    "showCloseButton": true,
+    "closeOnOverlayClick": true,
+    "closeOnEscape": true,
+    "showOverlay": true,
+    "overlayOpacity": 50
   }
 }

@@ -97,48 +97,139 @@ export interface FeaturesConfig {
   [key: string]: boolean;
 }
 
+// ─── ChatKit Configuration ────────────────────────────────────
+// Flat structure aligned with the builder's ChatContainerConfig
+// (builder.rocketing.ai/chatkit/ui). The builder is the source of
+// truth for widget configuration fields. Extra fields (archetype,
+// model, reasoning, tone, registry refs) are added for cascade/runtime.
+
+export type ChatKitArchetype =
+  | "role-coach"
+  | "document-builder"
+  | "marketing-analyst"
+  | "industry-advisor"
+  | "personal-companion";
+
+export type ChatKitContainerType = "embedded" | "modal" | "side-panel" | "fab";
+export type ChatKitAgentSelectorVariant = "none" | "dropdown" | "avatars" | "strip";
+export type ChatKitThemeOption = "light" | "dark" | "auto";
+export type ChatKitPosition = "left" | "right" | "bottom-right" | "bottom-left" | "top-right" | "top-left";
+export type ChatKitSizeUnit = "px" | "%";
+export type ChatKitFontFamily = "system" | "inter" | "roboto" | "opensans" | "lato" | "poppins" | "mono";
+export type ChatKitFontWeight = "normal" | "medium" | "semibold" | "bold";
+export type ChatKitFabIcon = "chat" | "message" | "help" | "support";
+
 export interface ChatKitConfig {
-  archetype: string;
-
-  agent: {
-    name: string;
-    greeting: string;
-    placeholder: string;
-    systemPrompt: string;
-    model: string;
-    reasoning: { effort: string };
-  };
-
-  registry: {
-    agent: string;
-    prompt: string;
-    tools: string[];
-    skills: string[];
-    widgets: string[];
-    workflows: string[];
-  };
-
+  // ── Cascade / Runtime fields (not in builder widget config) ──
+  archetype: ChatKitArchetype;
+  model: string;
+  reasoning: { effort: "minimal" | "low" | "medium" | "high" };
   tone: {
     personality: string;
-    formality: string;
+    formality: "casual" | "casual-professional" | "professional" | "formal";
     readingLevel: string;
-    emojiUsage: string;
+    emojiUsage: "none" | "minimal" | "moderate";
     traits: string[];
     antiTraits: string[];
   };
+  errorText: string;
+  loadingText: string;
+  successText: string | null;
+  registryAgent: string | null;
+  registryPrompt: string | null;
+  registryTools: string[];
+  registrySkills: string[];
 
-  microcopy: {
-    emptyState: string;
-    loading: string;
-    success: string | null;
-    error: string;
-  };
+  // ── Container settings (from builder ChatContainerConfig) ────
+  containerType: ChatKitContainerType;
+  width: number;
+  widthUnit: ChatKitSizeUnit;
+  height: number;
+  heightUnit: ChatKitSizeUnit;
+  maxWidth?: number;
+  maxHeight?: number;
+  borderRadius: number;
+  borderRadiusTL: number;
+  borderRadiusTR: number;
+  borderRadiusBL: number;
+  borderRadiusBR: number;
+  useIndividualCorners: boolean;
+  showBorder: boolean;
+  showShadow: boolean;
+  position: ChatKitPosition;
 
-  guardrails: {
-    enabled: boolean;
-    contentFiltering: boolean;
-    piiFiltering: boolean;
-    topicRestrictions: string[];
-    maxTokens: number;
-  };
+  // ── Spacing ──────────────────────────────────────────────────
+  useIndividualPadding: boolean;
+  padding: number;
+  paddingTop: number;
+  paddingRight: number;
+  paddingBottom: number;
+  paddingLeft: number;
+  useIndividualMargin: boolean;
+  margin: number;
+  marginTop: number;
+  marginRight: number;
+  marginBottom: number;
+  marginLeft: number;
+
+  // ── Header ───────────────────────────────────────────────────
+  showHeader: boolean;
+  headerText: string;
+  headerAlignment: "left" | "center" | "right";
+
+  // ── Theme & appearance ───────────────────────────────────────
+  theme: ChatKitThemeOption;
+  backgroundColor: string;
+  accentColor: string;
+  useCustomBackground: boolean;
+
+  // ── Typography ───────────────────────────────────────────────
+  fontFamily: ChatKitFontFamily;
+  headerFontSize: number;
+  headerFontWeight: ChatKitFontWeight;
+  bodyFontSize: number;
+  bodyLineHeight: number;
+  inputFontSize: number;
+  messageSpacing: number;
+
+  // ── Agent settings ───────────────────────────────────────────
+  profileId: string;
+  agentName: string;
+  agentSelectorVariant: ChatKitAgentSelectorVariant;
+  systemPrompt: string;
+
+  // ── Widgets ──────────────────────────────────────────────────
+  widgetsEnabled: boolean;
+  widgets: string[];
+
+  // ── Guardrails ───────────────────────────────────────────────
+  guardrailsEnabled: boolean;
+  maxTokens: number;
+  contentFiltering: boolean;
+  piiFiltering: boolean;
+  topicRestrictions: string[];
+
+  // ── Workflows ────────────────────────────────────────────────
+  workflowsEnabled: boolean;
+  workflows: string[];
+
+  // ── Chat settings ────────────────────────────────────────────
+  greeting: string;
+  placeholder: string;
+  emptyStateText: string;
+  attachmentsEnabled: boolean;
+  autoFocus: boolean;
+
+  // ── FAB-specific ─────────────────────────────────────────────
+  fabSize: number;
+  fabTooltip: string;
+  showBadge: boolean;
+  fabIcon: ChatKitFabIcon;
+
+  // ── Modal/SidePanel-specific ─────────────────────────────────
+  showCloseButton: boolean;
+  closeOnOverlayClick: boolean;
+  closeOnEscape: boolean;
+  showOverlay: boolean;
+  overlayOpacity: number;
 }
