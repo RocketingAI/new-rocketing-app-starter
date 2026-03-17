@@ -1,7 +1,6 @@
 import { NextRequest } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import OpenAI from "openai";
-import type { ReasoningEffort } from "openai/resources/responses/responses";
 import { connectDB } from "@/lib/db/client";
 import { ChatHistory } from "@/lib/db/models/chat-history.model";
 import { apiSuccess, apiError } from "@/lib/utils/api";
@@ -28,11 +27,11 @@ export async function POST(request: NextRequest) {
   }
   try {
     const response = await getOpenAI().responses.create({
-      model: chatkitConfig.agent.model,
+      model: chatkitConfig.model,
       input: message,
-      instructions: chatkitConfig.agent.systemPrompt,
+      instructions: chatkitConfig.systemPrompt,
       ...(previousResponseId ? { previous_response_id: previousResponseId } : {}),
-      reasoning: { effort: chatkitConfig.agent.reasoning.effort as ReasoningEffort },
+      reasoning: chatkitConfig.reasoning,
     });
     await ChatHistory.create({
       userId,
