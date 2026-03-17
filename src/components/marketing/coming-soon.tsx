@@ -1,5 +1,19 @@
 import { getSiteConfig } from "@/lib/config/loader";
-import type { CascadeAppData } from "@/lib/cascade/lookup";
+
+interface CascadeAppData {
+  appName?: string;
+  headline?: string;
+  tagline?: string;
+  description?: string;
+  supportEmail?: string;
+  currentPhase?: number;
+  status?: string;
+  colors?: {
+    primary: string;
+    background: string;
+    text: string;
+  };
+}
 
 interface ComingSoonProps {
   cascadeData?: CascadeAppData | null;
