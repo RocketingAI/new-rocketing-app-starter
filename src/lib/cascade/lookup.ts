@@ -13,19 +13,19 @@ export interface CascadeAppData {
   subdomain: string;
   status: string;
   currentPhase: number;
-  appName: string | null;
-  tagline: string | null;
-  description: string | null;
-  headline: string | null;
-  subheadline: string | null;
-  colors: {
+  appName?: string;
+  tagline?: string;
+  description?: string;
+  headline?: string;
+  subheadline?: string;
+  colors?: {
     primary: string;
     secondary: string;
     accent: string;
     background: string;
     text: string;
-  } | null;
-  supportEmail: string | null;
+  };
+  supportEmail?: string;
 }
 
 /**
@@ -73,13 +73,13 @@ export async function lookupCascadeByDomain(
     subdomain: trigger?.subdomain ?? "www",
     status: record.status,
     currentPhase: record.currentPhase ?? 0,
-    appName: brandKernel?.appName ?? null,
-    tagline: brandKernel?.tagline ?? null,
-    description: brandKernel?.coreProduct?.description ?? null,
-    headline: appConfig?.landingPage?.headline ?? null,
-    subheadline: appConfig?.landingPage?.subheadline ?? null,
-    colors: appConfig?.colorPalette ?? brandKernel?.colorPalette ?? null,
-    supportEmail: null,
+    appName: brandKernel?.appName ?? undefined,
+    tagline: brandKernel?.tagline ?? undefined,
+    description: brandKernel?.coreProduct?.description ?? undefined,
+    headline: appConfig?.landingPage?.headline ?? undefined,
+    subheadline: appConfig?.landingPage?.subheadline ?? undefined,
+    colors: appConfig?.colorPalette ?? brandKernel?.colorPalette ?? undefined,
+    supportEmail: undefined,
   };
 }
 
