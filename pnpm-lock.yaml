@@ -65,6 +65,9 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: ^1.2.8
         version: 1.2.8(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      '@rocketingai/platform-sdk':
+        specifier: ^1.0.0
+        version: 1.0.0
       '@stripe/stripe-js':
         specifier: ^8.8.0
         version: 8.8.0
@@ -77,6 +80,9 @@ importers:
       lucide-react:
         specifier: ^0.575.0
         version: 0.575.0(react@19.2.3)
+      mongodb:
+        specifier: ^7.1.0
+        version: 7.1.0
       mongoose:
         specifier: ^9.2.2
         version: 9.2.2
@@ -1075,6 +1081,10 @@ packages:
 
   '@radix-ui/rect@1.1.1':
     resolution: {integrity: sha512-HPwpGIzkl28mWyZqG52jiqDJ12waP11Pa1lGoiyUkIEuMLBP0oeK/C89esbXrxsky5we7dfd8U58nm0SgAWpVw==}
+
+  '@rocketingai/platform-sdk@1.0.0':
+    resolution: {integrity: sha512-6YqAGfQYxKAtAe5wSCjnxQFIzxUlnYV0dNTH6Aq00Z+XietlNfIMFUTk8s6Hx3KOI2+wolZnGfZ4rDfNAahXLQ==, tarball: https://npm.pkg.github.com/download/@rocketingai/platform-sdk/1.0.0/5a4483cd061a3de5fac27e44be57615edb68322c}
+    engines: {node: '>=22'}
 
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
@@ -2229,6 +2239,33 @@ packages:
 
   mongodb@7.0.0:
     resolution: {integrity: sha512-vG/A5cQrvGGvZm2mTnCSz1LUcbOPl83hfB6bxULKQ8oFZauyox/2xbZOoGNl+64m8VBrETkdGCDBdOsCr3F3jg==}
+    engines: {node: '>=20.19.0'}
+    peerDependencies:
+      '@aws-sdk/credential-providers': ^3.806.0
+      '@mongodb-js/zstd': ^7.0.0
+      gcp-metadata: ^7.0.1
+      kerberos: ^7.0.0
+      mongodb-client-encryption: '>=7.0.0 <7.1.0'
+      snappy: ^7.3.2
+      socks: ^2.8.6
+    peerDependenciesMeta:
+      '@aws-sdk/credential-providers':
+        optional: true
+      '@mongodb-js/zstd':
+        optional: true
+      gcp-metadata:
+        optional: true
+      kerberos:
+        optional: true
+      mongodb-client-encryption:
+        optional: true
+      snappy:
+        optional: true
+      socks:
+        optional: true
+
+  mongodb@7.1.0:
+    resolution: {integrity: sha512-kMfnKunbolQYwCIyrkxNJFB4Ypy91pYqua5NargS/f8ODNSJxT03ZU3n1JqL4mCzbSih8tvmMEMLpKTT7x5gCg==}
     engines: {node: '>=20.19.0'}
     peerDependencies:
       '@aws-sdk/credential-providers': ^3.806.0
@@ -3779,6 +3816,8 @@ snapshots:
 
   '@radix-ui/rect@1.1.1': {}
 
+  '@rocketingai/platform-sdk@1.0.0': {}
+
   '@rtsao/scc@1.1.0': {}
 
   '@stablelib/base64@1.0.1': {}
@@ -5037,6 +5076,12 @@ snapshots:
       whatwg-url: 14.2.0
 
   mongodb@7.0.0:
+    dependencies:
+      '@mongodb-js/saslprep': 1.4.6
+      bson: 7.2.0
+      mongodb-connection-string-url: 7.0.1
+
+  mongodb@7.1.0:
     dependencies:
       '@mongodb-js/saslprep': 1.4.6
       bson: 7.2.0

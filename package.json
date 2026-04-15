@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@rocketingai/platform-sdk": "^1.0.0",
     "@clerk/nextjs": "^6.38.2",
     "@clerk/themes": "^2.4.55",
     "@hookform/resolvers": "^5.2.2",
@@ -32,6 +33,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.575.0",
+    "mongodb": "^7.1.0",
     "mongoose": "^9.2.2",
     "next": "16.1.6",
     "next-themes": "^0.4.6",
@@ -54,5 +56,6 @@
     "eslint-config-next": "16.1.6",
     "tailwindcss": "^4",
     "typescript": "^5"
-  }
+  },
+  "packageManager": "pnpm@10.11.0"
 }

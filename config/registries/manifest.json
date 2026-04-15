@@ -61,5 +61,73 @@
   "blocks": [],
   "themes": [],
 
-  "_instructions": "Agents should check item status. 'pending' = not yet installed. 'installed' = available in the codebase. 'skipped' = not needed. Update status as items are resolved."
+  "chatkit": {
+    "_description": "ChatKit registry items that compose the AI assistant instance. The archetype determines which agent and prompt template to use. Tools, skills, widgets, and workflows are additive — Phase 8 agents select from available items based on the app's domain.",
+    "archetype": {
+      "selected": null,
+      "available": ["role-coach", "document-builder", "marketing-analyst", "industry-advisor", "personal-companion"],
+      "notes": "Set by Phase 4 (brandKernel) based on sector1_domainArchetype. Determines the base agent and prompt."
+    },
+    "agents": [
+      {
+        "name": null,
+        "registry": "agents",
+        "source": "registry.rocketing.ai",
+        "status": "pending",
+        "notes": "Resolved from archetype. One of: chatkit-role-coach, chatkit-document-builder, chatkit-marketing-analyst, chatkit-industry-advisor, chatkit-personal-companion"
+      }
+    ],
+    "prompts": [
+      {
+        "name": null,
+        "registry": "prompts",
+        "source": "registry.rocketing.ai",
+        "status": "pending",
+        "notes": "Resolved from archetype. One of: system-role-coach, system-document-builder, system-marketing-analyst, system-industry-advisor, system-personal-companion"
+      }
+    ],
+    "tools": [
+      {
+        "name": "search-knowledge-base",
+        "registry": "tools",
+        "source": "registry.rocketing.ai",
+        "status": "pending",
+        "notes": "Core tool — all archetypes. Searches app-specific content."
+      },
+      {
+        "name": "query-database",
+        "registry": "tools",
+        "source": "registry.rocketing.ai",
+        "status": "pending",
+        "notes": "Core tool — most archetypes. Queries app data for the assistant."
+      }
+    ],
+    "skills": [
+      {
+        "name": "summarize-content",
+        "registry": "skills",
+        "source": "registry.rocketing.ai",
+        "status": "pending",
+        "notes": "Core skill — all archetypes. Summarizes long content for users."
+      },
+      {
+        "name": "classify-intent",
+        "registry": "skills",
+        "source": "registry.rocketing.ai",
+        "status": "pending",
+        "notes": "Core skill — role-coach, document-builder, marketing-analyst. Routes user intent."
+      },
+      {
+        "name": "research-topic",
+        "registry": "skills",
+        "source": "registry.rocketing.ai",
+        "status": "pending",
+        "notes": "Core skill — role-coach, marketing-analyst, industry-advisor, personal-companion."
+      }
+    ],
+    "widgets": [],
+    "workflows": []
+  },
+
+  "_instructions": "Agents should check item status. 'pending' = not yet installed. 'installed' = available in the codebase. 'skipped' = not needed. Update status as items are resolved. For chatkit items, the archetype.selected field determines which agent/prompt to resolve — null means not yet assigned by the cascade pipeline."
 }
