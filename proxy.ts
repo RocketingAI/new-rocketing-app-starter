@@ -1,5 +1,7 @@
 // ─── PROTECTED: Do not modify ──────────────────────────────────
-// Next.js middleware — handles auth routing via Clerk.
+// Next.js proxy — handles auth routing via Clerk.
+// Uses proxy.ts (Node.js runtime) instead of middleware.ts (Edge)
+// to avoid Vercel edge function module validation issues with Clerk.
 // ────────────────────────────────────────────────────────────────
 
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
