@@ -1,0 +1,74 @@
+name: Sync AI agents
+
+# Pushes config/agents.config.ts to mastra.rocketing.ai.
+#
+# Deliberately its own workflow rather than a step in the app's build. The app deploys
+# through Vercel, and folding the sync into that would let a transient mastra outage block
+# a frontend deploy that has nothing to do with agents. This runs only when the agent
+# definitions actually change.
+#
+# On a pull request it runs with --dry-run, so the plan — create/update/unchanged/orphan —
+# shows up in the checks before anyone merges. On main it applies.
+#
+# Requires one repository secret:
+#   MASTRA_API_KEY   this app's key with `write` scope (see mastra docs/DEPLOY-KEYS.md)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "config/agents.config.ts"
+      - "scripts/sync-agents.ts"
+      - ".github/workflows/sync-agents.yml"
+  pull_request:
+    paths:
+      - "config/agents.config.ts"
+      - "scripts/sync-agents.ts"
+  workflow_dispatch:
+    inputs:
+      prune:
+        description: "Also delete agents that exist remotely but not in the config (needs an admin-scope key)"
+        type: boolean
+        default: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # No `pnpm install`. The sync script imports nothing at runtime — the config it reads
+      # is a sibling file, and its only other import is type-only, so it is erased before
+      # execution. Skipping the install avoids needing NPM_TOKEN for this app's private
+      # @rocketingai/platform-sdk dependency, which a sync of agent definitions has no
+      # business requiring, and takes the job from minutes to seconds.
+
+      # Skipped rather than failed when the secret is absent, so a fork PR — which cannot
+      # see repository secrets — does not show a red check for something it could never do.
+      - name: Check for credentials
+        id: creds
+        env:
+          MASTRA_API_KEY: ${{ secrets.MASTRA_API_KEY }}
+        run: |
+          if [ -z "$MASTRA_API_KEY" ]; then
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::MASTRA_API_KEY is not set — skipping. Add it as a repository secret to enable agent sync."
+          else
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Plan (dry run)
+        if: steps.creds.outputs.present == 'true' && github.event_name == 'pull_request'
+        env:
+          MASTRA_API_KEY: ${{ secrets.MASTRA_API_KEY }}
+        run: npx --yes tsx@4 scripts/sync-agents.ts --dry-run
+
+      - name: Apply
+        if: steps.creds.outputs.present == 'true' && github.event_name != 'pull_request'
+        env:
+          MASTRA_API_KEY: ${{ secrets.MASTRA_API_KEY }}
+        run: npx --yes tsx@4 scripts/sync-agents.ts ${{ (github.event_name == 'workflow_dispatch' && inputs.prune) && '--prune' || '' }}
