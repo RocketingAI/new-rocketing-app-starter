@@ -9,14 +9,17 @@ A configuration-first Next.js starter template designed to be cloned and customi
 gh repo create my-app --template rocketing/starter-app
 
 # 2. Install dependencies
-pnpm install
+#    npm, not pnpm — vercel.json's installCommand is
+#    `npm install --legacy-peer-deps`, and a different local package manager
+#    means local and deployed builds can resolve differently.
+npm install --legacy-peer-deps
 
 # 3. Configure environment
 cp .env.example .env.local
 # Edit .env.local with your API keys
 
 # 4. Run development server
-pnpm dev
+npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to see the app.
