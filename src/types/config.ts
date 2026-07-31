@@ -233,3 +233,72 @@ export interface ChatKitConfig {
   showOverlay: boolean;
   overlayOpacity: number;
 }
+
+// ─── Mastra agents (mastra.rocketing.ai) ───────────────────────
+//
+// Definitions for the app's AI agents, kept as code so they are reviewable and
+// revertable. `pnpm sync:agents` pushes them to mastra.rocketing.ai; the service is
+// the runtime, this file is the source of truth.
+//
+// The service validates the full shape on every write, so these types are a
+// convenience for editing rather than the authority. Anything it rejects comes back as
+// a VALIDATION_ERROR naming the field.
+
+/** Ground an agent's answers in RAG collections the app has ingested. */
+export interface MastraRagGrounding {
+  collections: string[];
+  topK?: number;
+  minScore?: number;
+}
+
+/** An external MCP server whose tools the agent may call. */
+export interface MastraMcpServer {
+  name: string;
+  url: string;
+  /**
+   * Name of a secret holding the bearer token — never the token itself. A stored
+   * definition with an inline token would put a live credential in the database, so the
+   * service refuses one.
+   */
+  authSecret?: string;
+  /** Gate every tool from this server behind human approval. */
+  requireApproval?: boolean;
+}
+
+/** Supervisor policy. Named settings only — never functions, since these cross HTTP. */
+export interface MastraDelegationPolicy {
+  maxDelegations?: number;
+  allowedSubagents?: string[];
+  promptSuffix?: string;
+  subagentMaxSteps?: number;
+  bailOnError?: boolean;
+  messageFilter?: { lastN?: number; dropContaining?: string[] };
+  includeSubAgentToolResults?: boolean;
+  isTaskComplete?: { scorers: string[]; strategy?: "all" | "any" };
+}
+
+export interface MastraAgent {
+  /** Stable id. Alphanumerics, dashes and underscores. Renaming means a new agent. */
+  agentId: string;
+  name: string;
+  /** `provider/model`, e.g. `openai/gpt-4.1-mini` or `anthropic/claude-sonnet-4-5`. */
+  model: string;
+  instructions: string;
+  /** Short capability summary. A supervisor routes on its subagents' descriptions. */
+  description?: string;
+  /**
+   * Conversation history and working memory. Semantic recall beyond the last 50
+   * messages additionally needs the vector store, which is not enabled today — see
+   * the mastra service README.
+   */
+  memory?: { enabled: boolean };
+  rag?: MastraRagGrounding;
+  mcpServers?: MastraMcpServer[];
+  /** Subagent ids, making this a supervisor. Resolved within this app only. */
+  agents?: string[];
+  delegation?: MastraDelegationPolicy;
+  maxSteps?: number;
+  metadata?: Record<string, unknown>;
+}
+
+export type AgentsConfig = MastraAgent[];

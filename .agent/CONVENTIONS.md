@@ -88,3 +88,31 @@ export async function GET() {
 
 - `@/` maps to `src/`
 - `@/../config/` for config files (they live outside src/)
+
+## AI Agents
+
+Agent definitions live in **`config/agents.config.ts`**, typed as `AgentsConfig` from
+`@/types/config`. They run on `mastra.rocketing.ai`; that file is the source of truth.
+
+To change how an agent behaves — its instructions, model, tools, memory, subagents — edit
+that file. Do **not** call the mastra API directly to create or modify an agent: the next
+sync would replace it, and the change would exist nowhere in git.
+
+```bash
+npm run sync:agents -- --dry-run    # show the plan
+npm run sync:agents              # apply
+```
+
+CI posts the plan on a PR and applies on merge, so the normal flow is: edit the file, open a
+PR, merge.
+
+Three things that will bite:
+
+- **The sync replaces, it does not merge.** A field deleted from an entry is deleted on the
+  service. Each entry must be the complete definition.
+- **`model` is `provider/model`** — `openai/gpt-4.1-mini`, not `gpt-4.1-mini`.
+- **MCP servers take `authSecret` (a secret's *name*), never `authToken`.** An inline token
+  would be written to a database in plaintext; both the sync and the service refuse it.
+
+Full guide, including how to call an agent from app code and what memory does:
+[`docs/AI_AGENTS.md`](../docs/AI_AGENTS.md).
