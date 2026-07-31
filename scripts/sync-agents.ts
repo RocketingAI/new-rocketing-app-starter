@@ -167,7 +167,10 @@ function validateLocally(agents: MastraAgent[]): void {
     }
 
     for (const m of a.mcpServers ?? []) {
-      if ("authToken" in (m as Record<string, unknown>)) {
+      // No cast: `in` accepts a key the declared type does not have, and asserting to
+      // `Record<string, unknown>` fails the build — `MastraMcpServer` has no index
+      // signature, so TypeScript rejects the conversion as a likely mistake.
+      if ("authToken" in m) {
         // The service refuses this too, but saying so here keeps a live token out of a
         // request body and out of any log that records one.
         problems.push(`${at}: mcpServers.${m.name} has authToken — use authSecret (a name)`);
